@@ -31,6 +31,9 @@ public class User {
     private List<Scrap> scraps;
 
     @OneToMany(mappedBy = "user")
-    private List<Post> posts;
-
+    private List<HouseTour> houseTours;
+    @OneToMany(mappedBy = "user")
+    private List<MediaPost> mediaPosts;
+    @OneToMany(mappedBy = "user")
+    private List<TipPost> tipPosts;
 }

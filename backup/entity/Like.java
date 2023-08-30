@@ -22,7 +22,14 @@ public class Like {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "post_id")
-    private Post post;
+    @JoinColumn(name = "house_tour_id")
+    private HouseTour houseTour;
 
+    @ManyToOne
+    @JoinColumn(name = "media_post_id")
+    private MediaPost mediaPost;
+
+    @ManyToOne
+    @JoinColumn(name = "tip_post_id")
+    private TipPost tipPost;
 }
