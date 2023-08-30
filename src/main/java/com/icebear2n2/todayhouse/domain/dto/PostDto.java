@@ -6,7 +6,7 @@ import lombok.Getter;
 import java.sql.Timestamp;
 
 @Getter
-public class HouseTourDto {
+public class PostDto {
     private Long postId;
     private String housingType;
     private Integer roomCount;
@@ -21,11 +21,12 @@ public class HouseTourDto {
     private Integer budget;
     private String link;
     private String copyrightNotice;
+    private String spaceInfo;
     private String title;
     private String content;
     private Timestamp createdAt;
 
-    public HouseTourDto(Post post) {
+    public PostDto(Post post) {
         this.postId = post.getPostId();
         this.housingType = post.getHousingType();
         this.roomCount = post.getRoomCount();
@@ -40,6 +41,7 @@ public class HouseTourDto {
         this.budget = post.getBudget();
         this.link = post.getLink();
         this.copyrightNotice = post.getCopyrightNotice();
+        this.spaceInfo = post.getSpaceInfo();
         this.title = post.getTitle();
         this.content = post.getContent();
         this.createdAt = post.getCreatedAt();
