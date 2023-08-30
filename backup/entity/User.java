@@ -22,7 +22,7 @@ public class User {
     private String email;
     private String password;
     private String userName;
-    private LocalDateTime birth;
+    private LocalDate birth;
 
     @OneToMany(mappedBy = "user")
     private List<Like> likes;

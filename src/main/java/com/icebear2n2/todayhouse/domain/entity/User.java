@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,7 +26,7 @@ public class User {
     @JoinColumn(name = "avatar_id", referencedColumnName = "avatar_id")
     private Avatar avatar;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "password")
@@ -35,6 +36,6 @@ public class User {
     private String userName;
 
     @Column(name = "birth")
-    private LocalDateTime birth;
+    private LocalDate birth;
 
 }

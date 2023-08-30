@@ -12,6 +12,6 @@ public class UserResponse extends UserDto {
 
     public UserResponse(User user) {
         super(user);
-        avatar = new AvatarDto(user.getAvatar());
+        avatar = null;
     }
 }

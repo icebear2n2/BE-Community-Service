@@ -3,6 +3,7 @@ package com.icebear2n2.todayhouse.domain.dto;
 import com.icebear2n2.todayhouse.domain.entity.User;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -10,7 +11,7 @@ public class UserDto {
     private Long userId;
     private String email;
     private String userName;
-    private LocalDateTime birth;
+    private LocalDate birth;
 
     public UserDto(User user) {
         this.userId = user.getUserId();
