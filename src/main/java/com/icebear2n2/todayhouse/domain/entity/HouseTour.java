@@ -22,7 +22,7 @@ public class HouseTour {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    private String housing_type;
+    private String housingType;
     private Integer roomCount;
     private String direction;
     private String location;
