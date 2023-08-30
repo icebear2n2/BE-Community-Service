@@ -7,24 +7,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "scrap")
+@Table(name = "follow")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Builder
-public class Scrap {
+public class Follow {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "scrap_id")
-    private Long scrapId;
+    @Column(name = "id")
+    private Long followerId;
 
     @ManyToOne
-    @JoinColumn(name = "avatar_id", referencedColumnName = "avatar_id")
-    private Avatar avatar;
+    @JoinColumn(name = "follower_id", referencedColumnName = "avatar_id")
+    private Avatar follower;
 
     @ManyToOne
-    @JoinColumn(name = "article_id", referencedColumnName = "article_id")
-    private Article article;
+    @JoinColumn(name = "following_id", referencedColumnName = "avatar_id")
+    private Avatar following;
 
 }

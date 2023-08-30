@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -16,21 +15,26 @@ import java.util.List;
 @Getter
 @Builder
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long userId;
+
+    @ManyToOne
+    @JoinColumn(name = "avatar_id", referencedColumnName = "avatar_id")
+    private Avatar avatar;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "user_name")
     private String userName;
+
+    @Column(name = "birth")
     private LocalDateTime birth;
-
-    @OneToMany(mappedBy = "user")
-    private List<Like> likes;
-
-    @OneToMany(mappedBy = "user")
-    private List<Scrap> scraps;
-
-    @OneToMany(mappedBy = "user")
-    private List<Post> posts;
 
 }

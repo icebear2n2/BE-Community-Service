@@ -5,23 +5,25 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
-@Table(name = "posts")
+@Table(name = "article")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Builder
+public class Article {
 
-public class Post {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long postId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "article_id")
+    private Long articleId;
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "avatar_id", referencedColumnName = "avatar_id")
+    private Avatar avatar;
     private String housingType;
     private Integer roomCount;
     private String direction;
@@ -38,12 +40,7 @@ public class Post {
     private String spaceInfo;
     private String title;
     private String content;
+
+    @CreationTimestamp
     private Timestamp createdAt;
-
-
-    @OneToMany(mappedBy = "post")
-    private List<Like> likes;
-    @OneToMany(mappedBy = "post")
-    private List<Scrap> scraps;
-
 }
