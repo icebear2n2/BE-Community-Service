@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "article")
@@ -40,6 +41,9 @@ public class Article {
     private String spaceInfo;
     private String title;
     private String content;
+
+    @OneToMany(mappedBy = "article")
+    private List<Comment> comments;
 
     @CreationTimestamp
     private Timestamp createdAt;
