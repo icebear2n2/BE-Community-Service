@@ -28,6 +28,11 @@ public class TipPostController {
         return tipPostService.getAll(pageRequest);
     }
 
+    @PutMapping("{id}")
+    public TipPostResponse update(@PathVariable("id") Long tipPostId, @RequestBody TipPostRequest request) {
+        return tipPostService.update(tipPostId, request);
+    }
+
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Long tipPostId) {
         tipPostService.delete(tipPostId);

@@ -31,6 +31,14 @@ public class TipPostService {
         return all.map(TipPostResponse::new);
     }
 
+
+    //    TODO: Tip POST UPDATE
+    public TipPostResponse update(Long tipPostId, TipPostRequest request) {
+        TipPost tipPost = tipPostRepository.findById(tipPostId).orElseThrow(() -> new RuntimeException("Tip Post NOT FOUND!"));
+        tipPost.UpdateTipPost(request.link(), request.linkInfo(), request.title(), request.content());
+        return new TipPostResponse(tipPost);
+    }
+
     //    TODO: Tip POST DELETE
     public void delete(Long tipPostId) {
         tipPostRepository.deleteById(tipPostId);
