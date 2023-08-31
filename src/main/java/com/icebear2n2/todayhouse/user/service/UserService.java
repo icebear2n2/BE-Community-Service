@@ -40,7 +40,7 @@ public class UserService {
         return all.map(UserResponse::new);
     }
 
-    //    TODO: USER UPDATE
+    //    TODO: USER UPDATE -> 수정 필요!!
     public UserResponse update(Long userId, UpdateRequest request) {
         User oldUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("NOT FOUND USER."));
         User user = new User(oldUser.getUserId(), oldUser.getAvatar(), oldUser.getEmail(), oldUser.getPassword(), request.username(), request.birth());
