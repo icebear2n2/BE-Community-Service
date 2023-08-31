@@ -38,4 +38,19 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<UserAvatar> avatars;
+
+    public void UpdateUser(String email, String password, String userName, LocalDate birth) {
+        if (email != null) {
+            this.email = email;
+        }
+        if (password != null) {
+            this.password = password;
+        }
+        if (userName != null) {
+            this.userName = userName;
+        }
+        if (birth != null) {
+            this.birth = birth;
+        }
+    }
 }
