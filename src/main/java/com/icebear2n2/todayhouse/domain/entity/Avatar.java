@@ -34,5 +34,12 @@ public class Avatar {
     private List<MediaPost> mediaPosts;
     @OneToMany(mappedBy = "avatar")
     private List<TipPost> tipPosts;
+
+    public void UpdateAvatar(String nickname, String gender, String picture, String about) {
+        this.nickname = nickname;
+        this.gender = gender;
+        this.picture = picture;
+        this.about = about;
+    }
 }
 
