@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "avatar")
 @AllArgsConstructor
@@ -22,5 +24,8 @@ public class Avatar {
     private String gender;
     private String picture;
     private String about;
+
+    @OneToMany(mappedBy = "avatar")
+    private List<UserAvatar> users;
 }
 

@@ -7,6 +7,6 @@ import java.time.LocalDateTime;
 
 public record SignupRequest(String email, String password, String username, LocalDate birth) {
     public User toEntity() {
-        return User.builder().email(email).password(password).userName(username).birth(birth).avatar(null).build();
+        return User.builder().email(email).password(password).userName(username).birth(birth).build();
     }
 }

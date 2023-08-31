@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -22,9 +23,6 @@ public class User {
     @Column(name = "user_id")
     private Long userId;
 
-    @ManyToOne
-    @JoinColumn(name = "avatar_id", referencedColumnName = "avatar_id")
-    private Avatar avatar;
 
     @Column(name = "email", unique = true)
     private String email;
@@ -38,4 +36,6 @@ public class User {
     @Column(name = "birth")
     private LocalDate birth;
 
+    @OneToMany(mappedBy = "user")
+    private List<UserAvatar> avatars;
 }

@@ -43,7 +43,7 @@ public class UserService {
     //    TODO: USER UPDATE -> 수정 필요!!
     public UserResponse update(Long userId, UpdateRequest request) {
         User oldUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("NOT FOUND USER."));
-        User user = new User(oldUser.getUserId(), oldUser.getAvatar(), oldUser.getEmail(), oldUser.getPassword(), request.username(), request.birth());
+        User user = new User(oldUser.getUserId(), oldUser.getEmail(), oldUser.getPassword(), request.username(), request.birth(), oldUser.getAvatars());
         userRepository.save(user);
         return new UserResponse(user);
     }
