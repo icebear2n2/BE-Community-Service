@@ -36,10 +36,18 @@ public class Avatar {
     private List<TipPost> tipPosts;
 
     public void UpdateAvatar(String nickname, String gender, String picture, String about) {
-        this.nickname = nickname;
-        this.gender = gender;
-        this.picture = picture;
-        this.about = about;
+        if (nickname != null) {
+            this.nickname = nickname;
+        }
+        if (gender != null) {
+            this.gender = gender;
+        }
+        if (picture != null) {
+            this.picture = picture;
+        }
+        if (about != null) {
+            this.about = about;
+        }
     }
 }
 
