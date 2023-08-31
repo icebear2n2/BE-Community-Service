@@ -1,5 +1,6 @@
 package com.icebear2n2.todayhouse.houseTour.controller;
 
+import com.icebear2n2.todayhouse.domain.dto.HouseTourDto;
 import com.icebear2n2.todayhouse.domain.request.HouseTourRequest;
 import com.icebear2n2.todayhouse.domain.response.HouseTourResponse;
 import com.icebear2n2.todayhouse.houseTour.service.HouseTourService;
@@ -29,6 +30,11 @@ public class HouseTourController {
     ) {
         PageRequest pageRequest = PageRequest.of(page, size);
         return houseTourService.getAll(pageRequest);
+    }
+
+    @PutMapping("{id}")
+    public HouseTourResponse update(@PathVariable("id") Long houseTourId, @RequestBody HouseTourRequest request) {
+        return houseTourService.update(houseTourId, request);
     }
 
     @DeleteMapping("{id}")

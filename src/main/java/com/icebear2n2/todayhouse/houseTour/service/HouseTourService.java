@@ -1,6 +1,7 @@
 package com.icebear2n2.todayhouse.houseTour.service;
 
 import com.icebear2n2.todayhouse.avatar.repository.AvatarRepository;
+import com.icebear2n2.todayhouse.domain.dto.HouseTourDto;
 import com.icebear2n2.todayhouse.domain.entity.Avatar;
 import com.icebear2n2.todayhouse.domain.entity.HouseTour;
 import com.icebear2n2.todayhouse.domain.request.HouseTourRequest;
@@ -33,7 +34,18 @@ public class HouseTourService {
         return all.map(HouseTourResponse::new);
     }
 
-//    TODO: HouseTour UPDATE
+    //    TODO: HouseTour UPDATE
+    public HouseTourResponse update(Long houseTourId, HouseTourRequest request) {
+        HouseTour houseTour = houseTourRepository.findById(houseTourId).orElseThrow(() -> new RuntimeException("POST NOT FOUND!"));
+        houseTour.UpdateHouseTour(
+                request.housingType(), request.roomCount(), request.direction(), request.location(),
+                request.familyType(), request.petPresence(), request.familyCount(), request.workField(),
+                request.worker(), request.duration(), request.budget(), request.copyrightNotice(),
+                request.title(), request.content()
+        );
+
+        return new HouseTourResponse(houseTour);
+    }
 
     //    TODO: HouseTour DELETE
     public void delete(Long houseTourId) {
