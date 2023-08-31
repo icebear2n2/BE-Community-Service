@@ -40,11 +40,11 @@ public class UserService {
         return all.map(UserResponse::new);
     }
 
-    //    TODO: USER UPDATE -> 수정 필요!!
+    //    TODO: USER UPDATE
     public UserResponse update(Long userId, UpdateRequest request) {
-        User oldUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("NOT FOUND USER."));
-        User user = new User(oldUser.getUserId(), oldUser.getEmail(), oldUser.getPassword(), request.username(), request.birth(), oldUser.getAvatars());
-        userRepository.save(user);
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("USER NOT FOUND!"));
+        user.UpdateUser(request.password(), request.username(), request.birth());
+
         return new UserResponse(user);
     }
 
