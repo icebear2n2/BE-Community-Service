@@ -43,4 +43,66 @@ public class HouseTour {
 
     @CreationTimestamp
     private Timestamp createdAt;
+
+    public void UpdateHouseTour(String housingType, Integer roomCount, String direction, String location, String familyType, Boolean petPresence, Integer familyCount, String workField, String worker, String duration, Integer budget, String copyrightNotice, String title, String content) {
+
+        if (housingType != null) {
+            this.housingType = housingType;
+        }
+
+        if (roomCount != null) {
+            this.roomCount = roomCount;
+
+        }
+        if (direction != null) {
+            this.direction = direction;
+
+        }
+        if (location != null) {
+            this.location = location;
+
+            if (familyType != null) {
+                this.familyType = familyType;
+
+            }
+        }
+        if (petPresence != null) {
+            this.petPresence = petPresence;
+
+        }
+        if (familyCount != null) {
+            this.familyCount = familyCount;
+
+        }
+        if (workField != null) {
+            this.workField = workField;
+
+        }
+        if (worker != null) {
+            this.worker = worker;
+
+        }
+        if (duration != null) {
+            this.duration = duration;
+
+        }
+        if (budget != null) {
+            this.budget = budget;
+
+        }
+        if (copyrightNotice != null) {
+            this.copyrightNotice = copyrightNotice;
+
+        }
+        if (title != null) {
+            this.title = title;
+
+        }
+        if (content != null) {
+            this.content = content;
+
+        }
+    }
 }
+
+
