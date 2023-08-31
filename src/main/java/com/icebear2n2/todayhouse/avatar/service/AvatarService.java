@@ -33,16 +33,14 @@ public class AvatarService {
         return all.map(AvatarResponse::new);
     }
 
-    //    TODO: Avatar UPDATE -> 수정 필요!!
+    //    TODO: Avatar UPDATE
     public AvatarResponse update(Long avatarId, AvatarRequest request) {
-        Avatar oldAvatar = avatarRepository.findById(avatarId).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
-        Avatar avatar = new Avatar(oldAvatar.getAvatarId(), request.nickname(), request.gender(), request.picture(), request.about(), oldAvatar.getUsers(), oldAvatar.getHouseTours(), oldAvatar.getMediaPosts(), oldAvatar.getTipPosts());
-        Avatar save = avatarRepository.save(avatar);
-        return new AvatarResponse(save);
+        Avatar avatar = avatarRepository.findById(avatarId).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
+        avatar.UpdateAvatar(request.nickname(), request.gender(), request.picture(), request.about());
+        return new AvatarResponse(avatar);
     }
 
-//    TODO: Avatar DELETE
-
+    //    TODO: Avatar DELETE
     public void delete(Long avatarId) {
         avatarRepository.deleteById(avatarId);
     }
