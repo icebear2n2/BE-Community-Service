@@ -30,4 +30,10 @@ public class MediaPost {
 
     @CreationTimestamp
     private Timestamp createdAt;
+
+    public void UpdateMediaPost(String spaceInfo) {
+        if (spaceInfo != null) {
+            this.spaceInfo = spaceInfo;
+        }
+    }
 }
