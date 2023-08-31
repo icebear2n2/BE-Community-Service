@@ -33,4 +33,20 @@ public class TipPost {
 
     @CreationTimestamp
     private Timestamp createdAt;
+
+    public void UpdateTipPost(String link, String linkInfo, String title, String content) {
+        if (link != null) {
+            this.link = link;
+        }
+        if (linkInfo != null) {
+            this.linkInfo = linkInfo;
+        }
+        if (title != null) {
+            this.title = title;
+        }
+        if (content != null) {
+            this.content = content;
+        }
+
+    }
 }
