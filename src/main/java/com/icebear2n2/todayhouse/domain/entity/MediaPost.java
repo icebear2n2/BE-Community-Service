@@ -1,2 +1,33 @@
-package com.icebear2n2.todayhouse.domain.entity;public class MediaPost {
+package com.icebear2n2.todayhouse.domain.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+@Entity
+@Table(name = "media_post")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Builder
+public class MediaPost {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "media_post_id")
+    private Long mediaPostId;
+    @ManyToOne
+    @JoinColumn(name = "avatar_id", referencedColumnName = "avatar_id")
+    private Avatar avatar;
+    private String spaceInfo;
+    @OneToMany(mappedBy = "mediaPost")
+    private List<Comment> comments;
+
+    @CreationTimestamp
+    private Timestamp createdAt;
 }

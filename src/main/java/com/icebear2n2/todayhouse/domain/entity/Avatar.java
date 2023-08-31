@@ -27,5 +27,12 @@ public class Avatar {
 
     @OneToMany(mappedBy = "avatar")
     private List<UserAvatar> users;
+
+    @OneToMany(mappedBy = "avatar")
+    private List<HouseTour> houseTours;
+    @OneToMany(mappedBy = "avatar")
+    private List<MediaPost> mediaPosts;
+    @OneToMany(mappedBy = "avatar")
+    private List<TipPost> tipPosts;
 }
 
