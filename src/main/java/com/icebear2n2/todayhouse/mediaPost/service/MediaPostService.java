@@ -29,6 +29,13 @@ public class MediaPostService {
         return all.map(MediaPostResponse::new);
     }
 
+    //    TODO: MediaPOST UPDATE
+    public MediaPostResponse update(Long mediaPostId, MediaPostRequest request) {
+        MediaPost mediaPost = mediaPostRepository.findById(mediaPostId).orElseThrow(() -> new RuntimeException("MEDIA POST NOT FOUND."));
+        mediaPost.UpdateMediaPost(request.spaceInfo());
+        return new MediaPostResponse(mediaPost);
+    }
+
 
     //    TODO: MediaPOST DELETE
 

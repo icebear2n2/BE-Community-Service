@@ -30,6 +30,11 @@ public class MediaPostController {
         return mediaPostService.getAll(pageRequest);
     }
 
+    @PutMapping("{id}")
+    public MediaPostResponse update(@PathVariable("id") Long mediaPostId, @RequestBody MediaPostRequest request) {
+        return mediaPostService.update(mediaPostId, request);
+    }
+
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Long mediaPostId) {
         mediaPostService.delete(mediaPostId);
