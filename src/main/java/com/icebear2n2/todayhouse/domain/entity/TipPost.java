@@ -29,7 +29,7 @@ public class TipPost {
     private String title;
     private String content;
     @OneToMany(mappedBy = "tipPost")
-    private List<Comment> comments;
+    private List<TipPostComment> comments;
 
     @CreationTimestamp
     private Timestamp createdAt;

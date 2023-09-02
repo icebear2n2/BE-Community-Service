@@ -26,7 +26,7 @@ public class MediaPost {
     private Avatar avatar;
     private String spaceInfo;
     @OneToMany(mappedBy = "mediaPost")
-    private List<Comment> comments;
+    private List<MediaPostComment> comments;
 
     @CreationTimestamp
     private Timestamp createdAt;

@@ -39,7 +39,7 @@ public class HouseTour {
     private String title;
     private String content;
     @OneToMany(mappedBy = "houseTour")
-    private List<Comment> comments;
+    private List<HouseTourComment> comments;
 
     @CreationTimestamp
     private Timestamp createdAt;
