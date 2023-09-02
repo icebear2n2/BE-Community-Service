@@ -1,12 +1,10 @@
 package com.icebear2n2.todayhouse.domain.request;
 
-import com.icebear2n2.todayhouse.domain.entity.Avatar;
-import com.icebear2n2.todayhouse.domain.entity.HouseTour;
-import com.icebear2n2.todayhouse.domain.entity.HouseTourComment;
+import com.icebear2n2.todayhouse.domain.entity.*;
 
-public record HouseTourCommentRequest(Long avatarId, Long houseTourId, String content) {
-    public HouseTourComment toEntity(Avatar avatar, HouseTour houseTour) {
-        return HouseTourComment.builder().avatar(avatar).houseTour(houseTour).content(content).build();
+public record MediaPostCommentRequest(Long avatarId, Long mediaPostId, String content) {
+    public MediaPostComment toEntity(Avatar avatar, MediaPost mediaPost) {
+        return MediaPostComment.builder().avatar(avatar).mediaPost(mediaPost).content(content).build();
 
     }
 }

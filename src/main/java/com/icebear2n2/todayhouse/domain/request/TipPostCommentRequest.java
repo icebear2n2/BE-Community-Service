@@ -2,9 +2,9 @@ package com.icebear2n2.todayhouse.domain.request;
 
 import com.icebear2n2.todayhouse.domain.entity.*;
 
-public record MediaPostCommentRequest(Long avatarId, Long mediaPostId, String content) {
-    public MediaPostComment toEntity(Avatar avatar, MediaPost mediaPost) {
-        return MediaPostComment.builder().avatar(avatar).mediaPost(mediaPost).content(content).build();
+public record TipPostCommentRequest(Long avatarId, Long tipPostId, String content) {
+    public TipPostComment toEntity(Avatar avatar, TipPost tipPost) {
+        return TipPostComment.builder().avatar(avatar).tipPost(tipPost).content(content).build();
 
     }
 }
