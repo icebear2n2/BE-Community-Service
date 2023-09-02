@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/post/house-tour")
+@RequestMapping("/api/v1/posts/house-tour")
 public class HouseTourController {
 
     private final HouseTourService houseTourService;
