@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/post/tip-post")
+@RequestMapping("/api/v1/posts/tip-post")
 public class TipPostController {
     private final TipPostService tipPostService;
 
