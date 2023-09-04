@@ -37,7 +37,13 @@ public class TipPostCommentService {
     }
 
     //    TODO: Comment UPDATE
-//    TODO: Comment DELETE
+    public TipPostCommentResponse update(Long tipPostCommentId, TipPostCommentRequest request) {
+        TipPostComment tipPostComment = tipPostCommentRepository.findById(tipPostCommentId).orElseThrow(() -> new RuntimeException("Comment Not Found!"));
+        tipPostComment.updateTipPostComment(request.content());
+        return new TipPostCommentResponse(tipPostComment);
+    }
+
+    //    TODO: Comment DELETE
     public void delete(Long tipPostCommentId) {
         tipPostCommentRepository.deleteById(tipPostCommentId);
     }

@@ -28,6 +28,11 @@ public class TipPostCommentController {
         return tipPostCommentService.getAll(pageRequest);
     }
 
+    @PutMapping("{id}")
+    public TipPostCommentResponse update(@PathVariable("id") Long tipPostCommentId, @RequestBody TipPostCommentRequest request) {
+        return tipPostCommentService.update(tipPostCommentId, request);
+    }
+
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Long tipPostCommentId) {
         tipPostCommentService.delete(tipPostCommentId);
