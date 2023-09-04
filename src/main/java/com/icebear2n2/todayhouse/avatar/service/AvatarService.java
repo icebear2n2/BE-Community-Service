@@ -37,6 +37,7 @@ public class AvatarService {
     public AvatarResponse update(Long avatarId, AvatarRequest request) {
         Avatar avatar = avatarRepository.findById(avatarId).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
         avatar.UpdateAvatar(request.nickname(), request.gender(), request.picture(), request.about());
+        avatarRepository.save(avatar);
         return new AvatarResponse(avatar);
     }
 
