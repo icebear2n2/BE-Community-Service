@@ -45,6 +45,7 @@ public class UserService {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("USER NOT FOUND!"));
         user.UpdateUser(request.password(), request.username(), request.birth());
 
+        userRepository.save(user);
         return new UserResponse(user);
     }
 
