@@ -36,6 +36,7 @@ public class TipPostService {
     public TipPostResponse update(Long tipPostId, TipPostRequest request) {
         TipPost tipPost = tipPostRepository.findById(tipPostId).orElseThrow(() -> new RuntimeException("Tip Post NOT FOUND!"));
         tipPost.UpdateTipPost(request.link(), request.linkInfo(), request.title(), request.content());
+        tipPostRepository.save(tipPost);
         return new TipPostResponse(tipPost);
     }
 
