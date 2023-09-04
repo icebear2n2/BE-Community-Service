@@ -61,10 +61,11 @@ public class HouseTour {
         if (location != null) {
             this.location = location;
 
-            if (familyType != null) {
-                this.familyType = familyType;
+        }
 
-            }
+        if (familyType != null) {
+            this.familyType = familyType;
+
         }
         if (petPresence != null) {
             this.petPresence = petPresence;
