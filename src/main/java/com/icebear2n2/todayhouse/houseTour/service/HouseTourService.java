@@ -43,6 +43,7 @@ public class HouseTourService {
                 request.worker(), request.duration(), request.budget(), request.copyrightNotice(),
                 request.title(), request.content()
         );
+        houseTourRepository.save(houseTour);
 
         return new HouseTourResponse(houseTour);
     }
