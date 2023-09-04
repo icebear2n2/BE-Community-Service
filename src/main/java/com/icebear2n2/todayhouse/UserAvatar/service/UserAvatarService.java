@@ -23,6 +23,7 @@ public class UserAvatarService {
     public void connect(ConnectRequest request) {
         User user = userRepository.findById(request.userId()).orElseThrow(() -> new RuntimeException("USER NOT FOUND!"));
         Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
+
         UserAvatar userAvatar = new UserAvatar(null, user, avatar);
         userAvatarRepository.save(userAvatar);
     }
