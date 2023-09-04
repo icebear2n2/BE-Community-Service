@@ -29,6 +29,11 @@ public class MediaPostCommentController {
         return mediaPostCommentService.getAll(pageRequest);
     }
 
+    @PutMapping("{id}")
+    public MediaPostCommentResponse update(@PathVariable("id") Long mediaPostCommentId, @RequestBody MediaPostCommentRequest request) {
+        return mediaPostCommentService.update(mediaPostCommentId, request);
+    }
+
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Long mediaPostCommentId) {
         mediaPostCommentService.delete(mediaPostCommentId);

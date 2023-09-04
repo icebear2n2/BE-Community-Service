@@ -34,7 +34,14 @@ public class MediaPostCommentService {
         Page<MediaPostComment> all = mediaPostCommentRepository.findAll(request);
         return all.map(MediaPostCommentResponse::new);
     }
-//    TODO: Comment UPDATE
+
+    //    TODO: Comment UPDATE
+    public MediaPostCommentResponse update(Long mediaPostCommentId, MediaPostCommentRequest request) {
+        MediaPostComment mediaPostComment = mediaPostCommentRepository.findById(mediaPostCommentId).orElseThrow(() -> new RuntimeException("Comment Not Found!"));
+        mediaPostComment.updateMediaPostComment(request.content());
+        mediaPostCommentRepository.save(mediaPostComment);
+        return new MediaPostCommentResponse(mediaPostComment);
+    }
 
     //    TODO: Comment DELETE
     public void delete(Long mediaPostCommentId) {
