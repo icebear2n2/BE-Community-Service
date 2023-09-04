@@ -34,7 +34,16 @@ public class HouseTourCommentService {
         Page<HouseTourComment> all = houseTourCommentRepository.findAll(request);
         return all.map(HouseTourCommentResponse::new);
     }
-//    TODO: Comment UPDATE
+
+    //    TODO: Comment UPDATE
+    public HouseTourCommentResponse update(Long houseTourCommentId, HouseTourCommentRequest request) {
+        HouseTourComment houseTourComment = houseTourCommentRepository.findById(houseTourCommentId).orElseThrow(() -> new RuntimeException("Comment Not Found!"));
+        houseTourComment.updateHouseTourComment(request.content());
+
+        houseTourCommentRepository.save(houseTourComment);
+        return new HouseTourCommentResponse(houseTourComment);
+    }
+
 
     //    TODO: Comment DELETE
     public void delete(Long houseTourCommentId) {

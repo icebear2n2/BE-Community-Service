@@ -29,6 +29,11 @@ public class HouseTourCommentController {
         return houseTourCommentService.getAll(pageRequest);
     }
 
+    @PutMapping("{id}")
+    public HouseTourCommentResponse update(@PathVariable("id") Long houseTourCommentId, @RequestBody HouseTourCommentRequest request) {
+        return houseTourCommentService.update(houseTourCommentId, request);
+    }
+
     @DeleteMapping("{id}")
     public void delete(@PathVariable("id") Long houseTourCommentId) {
         houseTourCommentService.delete(houseTourCommentId);
