@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TipPostLikeRepository extends JpaRepository<TipPostLike, Long> {
     Page<TipPostLike> findAll(Pageable request);
+
+    Boolean existsByAvatar_AvatarIdAndTipPost_TipPostId(Long avatarId, Long tipPostId);
 }

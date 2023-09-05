@@ -23,8 +23,13 @@ public class TipPostLikeService {
     public void insert(TipPostLikeRequest request) {
         Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
         TipPost tipPost = tipPostRepository.findById(request.tipPostId()).orElseThrow(() -> new RuntimeException("Tip Post NOT FOUND!"));
-        TipPostLike tipPostLike = request.toEntity(avatar, tipPost);
-        tipPostLikeRepository.save(tipPostLike);
+        Boolean existsByAvatarAvatarIdAndTipPostTipPostId = tipPostLikeRepository.existsByAvatar_AvatarIdAndTipPost_TipPostId(avatar.getAvatarId(), tipPost.getTipPostId());
+        if (!existsByAvatarAvatarIdAndTipPostTipPostId) {
+            TipPostLike tipPostLike = request.toEntity(avatar, tipPost);
+            tipPostLikeRepository.save(tipPostLike);
+        } else {
+            throw new RuntimeException("Already Like Post.");
+        }
     }
 
     public Page<TipPostLikeResponse> getAll(PageRequest request) {
