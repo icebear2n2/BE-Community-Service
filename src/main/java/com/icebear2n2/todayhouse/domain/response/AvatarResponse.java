@@ -21,7 +21,8 @@ public class AvatarResponse extends AvatarDto {
         houseTours = avatar.getHouseTours().stream().map(HouseTourDto::new).toList();
         mediaPosts = avatar.getMediaPosts().stream().map(MediaPostDto::new).toList();
         tipPosts = avatar.getTipPosts().stream().map(TipPostDto::new).toList();
-        followers = avatar.getFollowerList().stream().map(Follow::getFollower).map(AvatarDto::new).toList();
-        followings = avatar.getFollowingList().stream().map(Follow::getFollowing).map(AvatarDto::new).toList();
+        followers = avatar.getFollowingList().stream().map(Follow::getFollower).map(AvatarDto::new).toList();
+        followings = avatar.getFollowerList().stream().map(Follow::getFollowing).map(AvatarDto::new).toList();
+
     }
 }
