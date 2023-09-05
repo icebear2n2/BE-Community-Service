@@ -23,8 +23,14 @@ public class MediaPostLikeService {
     public void insert(MediaPostLikeRequest request) {
         Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
         MediaPost mediaPost = mediaPostRepository.findById(request.mediaPostId()).orElseThrow(() -> new RuntimeException("MEDIA POST NOT FOUND."));
-        MediaPostLike mediaPostLike = request.toEntity(avatar, mediaPost);
-        mediaPostLikeRepository.save(mediaPostLike);
+
+        Boolean existsByAvatarAvatarIdAndMediaPostMediaPostId = mediaPostLikeRepository.existsByAvatar_AvatarIdAndMediaPost_MediaPostId(avatar.getAvatarId(), mediaPost.getMediaPostId());
+        if (!existsByAvatarAvatarIdAndMediaPostMediaPostId) {
+            MediaPostLike mediaPostLike = request.toEntity(avatar, mediaPost);
+            mediaPostLikeRepository.save(mediaPostLike);
+        } else {
+            throw new RuntimeException("Already Like Post.");
+        }
     }
 
     public Page<MediaPostLikeResponse> getAll(PageRequest request) {
