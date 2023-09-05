@@ -26,8 +26,14 @@ public class HouseTourLikeService {
     public void insert(HouseTourLikeRequest request) {
         Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
         HouseTour houseTour = houseTourRepository.findById(request.houseTourId()).orElseThrow(() -> new RuntimeException("POST NOT FOUND!"));
-        HouseTourLike houseTourLike = request.toEntity(avatar, houseTour);
-        houseTourLikeRepository.save(houseTourLike);
+        Boolean existsByAvatarAvatarIdAndHouseTourHouseTourId = houseTourLikeRepository.existsByAvatar_AvatarIdAndHouseTour_HouseTourId(avatar.getAvatarId(), houseTour.getHouseTourId());
+        if (!existsByAvatarAvatarIdAndHouseTourHouseTourId) {
+            HouseTourLike houseTourLike = request.toEntity(avatar, houseTour);
+            houseTourLikeRepository.save(houseTourLike);
+        } else {
+            throw new RuntimeException("Already Like Post.");
+        }
+
     }
 
     //    TODO: Like READ
