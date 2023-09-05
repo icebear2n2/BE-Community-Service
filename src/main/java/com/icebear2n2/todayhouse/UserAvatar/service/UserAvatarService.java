@@ -24,8 +24,13 @@ public class UserAvatarService {
         User user = userRepository.findById(request.userId()).orElseThrow(() -> new RuntimeException("USER NOT FOUND!"));
         Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
 
-        UserAvatar userAvatar = new UserAvatar(null, user, avatar);
-        userAvatarRepository.save(userAvatar);
+        Boolean aBoolean = userAvatarRepository.existsByAvatarOrUser(avatar, user);
+        if (!aBoolean) {
+            UserAvatar userAvatar = new UserAvatar(null, user, avatar);
+            userAvatarRepository.save(userAvatar);
+        } else {
+            throw new RuntimeException("EXIST USER or AVATAR");
+        }
     }
 
 
