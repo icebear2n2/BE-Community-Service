@@ -1,6 +1,10 @@
 package com.icebear2n2.todayhouse.follow.service;
 
 import com.icebear2n2.todayhouse.avatar.repository.AvatarRepository;
+import com.icebear2n2.todayhouse.config.exception.ExistFollowException;
+import com.icebear2n2.todayhouse.config.exception.FollowNotFoundException;
+import com.icebear2n2.todayhouse.config.exception.NotAllowFollowException;
+import com.icebear2n2.todayhouse.config.exception.UserNotFoundException;
 import com.icebear2n2.todayhouse.domain.entity.Avatar;
 import com.icebear2n2.todayhouse.domain.entity.Follow;
 import com.icebear2n2.todayhouse.domain.request.FollowRequest;
@@ -20,28 +24,34 @@ public class FollowService {
     private final AvatarRepository avatarRepository;
 
     public void addFollow(FollowRequest request) {
-        Avatar follower = avatarRepository.findById(request.followerId()).orElseThrow(() -> new RuntimeException("Follower Not Found!"));
-        Avatar following = avatarRepository.findById(request.followingId()).orElseThrow(() -> new RuntimeException("Following Not Found!"));
+        Avatar follower = avatarRepository.findById(request.followerId()).orElseThrow(UserNotFoundException::new);
+        Avatar following = avatarRepository.findById(request.followingId()).orElseThrow(UserNotFoundException::new);
         Boolean existsByFollowerAndFollowing = followRepository.existsByFollowerAndFollowing(follower, following);
 
-        if (!existsByFollowerAndFollowing && !Objects.equals(follower.getAvatarId(), following.getAvatarId())) {
-            Follow follow = request.toEntity(follower, following);
-            followRepository.save(follow);
+        if (!existsByFollowerAndFollowing) {
+            if (!Objects.equals(follower.getAvatarId(), following.getAvatarId())) {
+                Follow follow = request.toEntity(follower, following);
+                followRepository.save(follow);
+            } else {
+                throw new NotAllowFollowException();
+            }
+
         } else {
-            throw new RuntimeException("EXIST Follower AND Following.");
+            throw new ExistFollowException();
         }
+
 
     }
 
     public void removeFollow(FollowRequest request) {
-        Avatar follower = avatarRepository.findById(request.followerId()).orElseThrow(() -> new RuntimeException("User Not Found!"));
-        Avatar following = avatarRepository.findById(request.followingId()).orElseThrow(() -> new RuntimeException("User Not Found!"));
+        Avatar follower = avatarRepository.findById(request.followerId()).orElseThrow(UserNotFoundException::new);
+        Avatar following = avatarRepository.findById(request.followingId()).orElseThrow(UserNotFoundException::new);
 
         Follow follow = followRepository.findByFollowerAndFollowing(follower, following);
         if (follow != null) {
             followRepository.delete(follow);
         } else {
-            throw new RuntimeException("Follow relationship not found!");
+            throw new FollowNotFoundException();
         }
     }
 

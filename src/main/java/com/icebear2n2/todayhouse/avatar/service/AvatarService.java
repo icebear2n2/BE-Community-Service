@@ -1,6 +1,8 @@
 package com.icebear2n2.todayhouse.avatar.service;
 
 import com.icebear2n2.todayhouse.avatar.repository.AvatarRepository;
+import com.icebear2n2.todayhouse.config.exception.AvatarNotFoundException;
+import com.icebear2n2.todayhouse.config.exception.ExistNickNameException;
 import com.icebear2n2.todayhouse.domain.entity.Avatar;
 import com.icebear2n2.todayhouse.domain.entity.User;
 import com.icebear2n2.todayhouse.domain.request.AvatarRequest;
@@ -28,7 +30,7 @@ public class AvatarService {
         if (!existsByNickname) {
             avatarRepository.save(avatar);
         } else {
-            throw new RuntimeException("AVATAR NiCK NAME EXIST.");
+            throw new ExistNickNameException();
         }
     }
 
@@ -41,7 +43,7 @@ public class AvatarService {
 
     //    TODO: Avatar UPDATE
     public AvatarResponse update(Long avatarId, AvatarRequest request) {
-        Avatar avatar = avatarRepository.findById(avatarId).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
+        Avatar avatar = avatarRepository.findById(avatarId).orElseThrow(AvatarNotFoundException::new);
         avatar.UpdateAvatar(request.nickname(), request.gender(), request.picture(), request.about());
         avatarRepository.save(avatar);
         return new AvatarResponse(avatar);

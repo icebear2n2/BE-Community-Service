@@ -1,6 +1,10 @@
 package com.icebear2n2.todayhouse.tipPostLike.service;
 
 import com.icebear2n2.todayhouse.avatar.repository.AvatarRepository;
+import com.icebear2n2.todayhouse.config.exception.AvatarNotFoundException;
+import com.icebear2n2.todayhouse.config.exception.ExistLikeException;
+import com.icebear2n2.todayhouse.config.exception.LikeNotFoundException;
+import com.icebear2n2.todayhouse.config.exception.TipPostNotFoundException;
 import com.icebear2n2.todayhouse.domain.entity.Avatar;
 import com.icebear2n2.todayhouse.domain.entity.TipPost;
 import com.icebear2n2.todayhouse.domain.entity.TipPostLike;
@@ -21,14 +25,14 @@ public class TipPostLikeService {
     private final AvatarRepository avatarRepository;
 
     public void insert(TipPostLikeRequest request) {
-        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
-        TipPost tipPost = tipPostRepository.findById(request.tipPostId()).orElseThrow(() -> new RuntimeException("Tip Post NOT FOUND!"));
+        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(AvatarNotFoundException::new);
+        TipPost tipPost = tipPostRepository.findById(request.tipPostId()).orElseThrow(TipPostNotFoundException::new);
         Boolean existsByAvatarAvatarIdAndTipPostTipPostId = tipPostLikeRepository.existsByAvatar_AvatarIdAndTipPost_TipPostId(avatar.getAvatarId(), tipPost.getTipPostId());
         if (!existsByAvatarAvatarIdAndTipPostTipPostId) {
             TipPostLike tipPostLike = request.toEntity(avatar, tipPost);
             tipPostLikeRepository.save(tipPostLike);
         } else {
-            throw new RuntimeException("Already Like Post.");
+            throw new ExistLikeException();
         }
     }
 
@@ -38,6 +42,7 @@ public class TipPostLikeService {
     }
 
     public void delete(Long tipPostLikeId) {
-        tipPostLikeRepository.deleteById(tipPostLikeId);
+        TipPostLike tipPostLike = tipPostLikeRepository.findById(tipPostLikeId).orElseThrow(LikeNotFoundException::new);
+        tipPostLikeRepository.deleteById(tipPostLike.getLikeId());
     }
 }

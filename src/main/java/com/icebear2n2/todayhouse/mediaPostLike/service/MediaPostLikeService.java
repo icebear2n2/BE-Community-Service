@@ -1,6 +1,10 @@
 package com.icebear2n2.todayhouse.mediaPostLike.service;
 
 import com.icebear2n2.todayhouse.avatar.repository.AvatarRepository;
+import com.icebear2n2.todayhouse.config.exception.AvatarNotFoundException;
+import com.icebear2n2.todayhouse.config.exception.ExistLikeException;
+import com.icebear2n2.todayhouse.config.exception.LikeNotFoundException;
+import com.icebear2n2.todayhouse.config.exception.MediaPostNotFoundException;
 import com.icebear2n2.todayhouse.domain.entity.Avatar;
 import com.icebear2n2.todayhouse.domain.entity.MediaPost;
 import com.icebear2n2.todayhouse.domain.entity.MediaPostLike;
@@ -21,15 +25,15 @@ public class MediaPostLikeService {
     private final AvatarRepository avatarRepository;
 
     public void insert(MediaPostLikeRequest request) {
-        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
-        MediaPost mediaPost = mediaPostRepository.findById(request.mediaPostId()).orElseThrow(() -> new RuntimeException("MEDIA POST NOT FOUND."));
+        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(AvatarNotFoundException::new);
+        MediaPost mediaPost = mediaPostRepository.findById(request.mediaPostId()).orElseThrow(MediaPostNotFoundException::new);
 
         Boolean existsByAvatarAvatarIdAndMediaPostMediaPostId = mediaPostLikeRepository.existsByAvatar_AvatarIdAndMediaPost_MediaPostId(avatar.getAvatarId(), mediaPost.getMediaPostId());
         if (!existsByAvatarAvatarIdAndMediaPostMediaPostId) {
             MediaPostLike mediaPostLike = request.toEntity(avatar, mediaPost);
             mediaPostLikeRepository.save(mediaPostLike);
         } else {
-            throw new RuntimeException("Already Like Post.");
+            throw new ExistLikeException();
         }
     }
 
@@ -39,6 +43,7 @@ public class MediaPostLikeService {
     }
 
     public void delete(Long mediaPostLikeId) {
-        mediaPostLikeRepository.deleteById(mediaPostLikeId);
+        MediaPostLike mediaPostLike = mediaPostLikeRepository.findById(mediaPostLikeId).orElseThrow(LikeNotFoundException::new);
+        mediaPostLikeRepository.deleteById(mediaPostLike.getLikeId());
     }
 }

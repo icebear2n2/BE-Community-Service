@@ -1,6 +1,9 @@
 package com.icebear2n2.todayhouse.houseTourComment.service;
 
 import com.icebear2n2.todayhouse.avatar.repository.AvatarRepository;
+import com.icebear2n2.todayhouse.config.exception.AvatarNotFoundException;
+import com.icebear2n2.todayhouse.config.exception.CommentNotFoundException;
+import com.icebear2n2.todayhouse.config.exception.HouseTourNotFoundException;
 import com.icebear2n2.todayhouse.domain.entity.Avatar;
 import com.icebear2n2.todayhouse.domain.entity.HouseTour;
 import com.icebear2n2.todayhouse.domain.entity.HouseTourComment;
@@ -23,8 +26,8 @@ public class HouseTourCommentService {
     //    TODO: Comment CRUD
 //    TODO : Comment CREATE
     public void insert(HouseTourCommentRequest request) {
-        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
-        HouseTour houseTour = houseTourRepository.findById(request.houseTourId()).orElseThrow(() -> new RuntimeException("POST NOT FOUND!"));
+        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(AvatarNotFoundException::new);
+        HouseTour houseTour = houseTourRepository.findById(request.houseTourId()).orElseThrow(HouseTourNotFoundException::new);
         HouseTourComment houseTourComment = request.toEntity(avatar, houseTour);
         houseTourCommentRepository.save(houseTourComment);
     }
@@ -37,7 +40,7 @@ public class HouseTourCommentService {
 
     //    TODO: Comment UPDATE
     public HouseTourCommentResponse update(Long houseTourCommentId, HouseTourCommentRequest request) {
-        HouseTourComment houseTourComment = houseTourCommentRepository.findById(houseTourCommentId).orElseThrow(() -> new RuntimeException("Comment Not Found!"));
+        HouseTourComment houseTourComment = houseTourCommentRepository.findById(houseTourCommentId).orElseThrow(CommentNotFoundException::new);
         houseTourComment.updateHouseTourComment(request.content());
 
         houseTourCommentRepository.save(houseTourComment);
@@ -47,6 +50,7 @@ public class HouseTourCommentService {
 
     //    TODO: Comment DELETE
     public void delete(Long houseTourCommentId) {
-        houseTourCommentRepository.deleteById(houseTourCommentId);
+        HouseTourComment houseTourComment = houseTourCommentRepository.findById(houseTourCommentId).orElseThrow(CommentNotFoundException::new);
+        houseTourCommentRepository.deleteById(houseTourComment.getHouseTourCommentId());
     }
 }

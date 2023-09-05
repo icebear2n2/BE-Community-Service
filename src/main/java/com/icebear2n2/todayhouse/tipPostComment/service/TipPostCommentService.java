@@ -1,6 +1,9 @@
 package com.icebear2n2.todayhouse.tipPostComment.service;
 
 import com.icebear2n2.todayhouse.avatar.repository.AvatarRepository;
+import com.icebear2n2.todayhouse.config.exception.AvatarNotFoundException;
+import com.icebear2n2.todayhouse.config.exception.CommentNotFoundException;
+import com.icebear2n2.todayhouse.config.exception.TipPostNotFoundException;
 import com.icebear2n2.todayhouse.domain.entity.Avatar;
 import com.icebear2n2.todayhouse.domain.entity.MediaPost;
 import com.icebear2n2.todayhouse.domain.entity.TipPost;
@@ -24,8 +27,8 @@ public class TipPostCommentService {
     //    TODO: Comment CRUD
 //    TODO: Comment CREATE
     public void insert(TipPostCommentRequest request) {
-        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
-        TipPost tipPost = tipPostRepository.findById(request.tipPostId()).orElseThrow(() -> new RuntimeException("POST NOT FOUND!"));
+        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(AvatarNotFoundException::new);
+        TipPost tipPost = tipPostRepository.findById(request.tipPostId()).orElseThrow(TipPostNotFoundException::new);
         TipPostComment tipPostComment = request.toEntity(avatar, tipPost);
         tipPostCommentRepository.save(tipPostComment);
     }
@@ -38,13 +41,14 @@ public class TipPostCommentService {
 
     //    TODO: Comment UPDATE
     public TipPostCommentResponse update(Long tipPostCommentId, TipPostCommentRequest request) {
-        TipPostComment tipPostComment = tipPostCommentRepository.findById(tipPostCommentId).orElseThrow(() -> new RuntimeException("Comment Not Found!"));
+        TipPostComment tipPostComment = tipPostCommentRepository.findById(tipPostCommentId).orElseThrow(CommentNotFoundException::new);
         tipPostComment.updateTipPostComment(request.content());
         return new TipPostCommentResponse(tipPostComment);
     }
 
     //    TODO: Comment DELETE
     public void delete(Long tipPostCommentId) {
-        tipPostCommentRepository.deleteById(tipPostCommentId);
+        TipPostComment tipPostComment = tipPostCommentRepository.findById(tipPostCommentId).orElseThrow(CommentNotFoundException::new);
+        tipPostCommentRepository.deleteById(tipPostComment.getTipPostCommentId());
     }
 }

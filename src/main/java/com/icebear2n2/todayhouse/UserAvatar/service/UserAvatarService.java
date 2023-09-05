@@ -2,6 +2,9 @@ package com.icebear2n2.todayhouse.UserAvatar.service;
 
 import com.icebear2n2.todayhouse.UserAvatar.repository.UserAvatarRepository;
 import com.icebear2n2.todayhouse.avatar.repository.AvatarRepository;
+import com.icebear2n2.todayhouse.config.exception.AvatarNotFoundException;
+import com.icebear2n2.todayhouse.config.exception.ExistAvatarUserException;
+import com.icebear2n2.todayhouse.config.exception.UserNotFoundException;
 import com.icebear2n2.todayhouse.domain.entity.Avatar;
 import com.icebear2n2.todayhouse.domain.entity.User;
 import com.icebear2n2.todayhouse.domain.entity.UserAvatar;
@@ -21,15 +24,15 @@ public class UserAvatarService {
     private final UserAvatarRepository userAvatarRepository;
 
     public void connect(ConnectRequest request) {
-        User user = userRepository.findById(request.userId()).orElseThrow(() -> new RuntimeException("USER NOT FOUND!"));
-        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
+        User user = userRepository.findById(request.userId()).orElseThrow(UserNotFoundException::new);
+        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(AvatarNotFoundException::new);
 
         Boolean aBoolean = userAvatarRepository.existsByAvatarOrUser(avatar, user);
         if (!aBoolean) {
             UserAvatar userAvatar = new UserAvatar(null, user, avatar);
             userAvatarRepository.save(userAvatar);
         } else {
-            throw new RuntimeException("EXIST USER or AVATAR");
+            throw new ExistAvatarUserException();
         }
     }
 

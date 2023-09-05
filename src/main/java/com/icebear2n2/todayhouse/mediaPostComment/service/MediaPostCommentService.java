@@ -1,6 +1,9 @@
 package com.icebear2n2.todayhouse.mediaPostComment.service;
 
 import com.icebear2n2.todayhouse.avatar.repository.AvatarRepository;
+import com.icebear2n2.todayhouse.config.exception.AvatarNotFoundException;
+import com.icebear2n2.todayhouse.config.exception.CommentNotFoundException;
+import com.icebear2n2.todayhouse.config.exception.MediaPostNotFoundException;
 import com.icebear2n2.todayhouse.domain.entity.Avatar;
 import com.icebear2n2.todayhouse.domain.entity.MediaPost;
 import com.icebear2n2.todayhouse.domain.entity.MediaPostComment;
@@ -23,8 +26,8 @@ public class MediaPostCommentService {
     //    TODO: Comment CRUD
 //    TODO: Comment CREATE
     public void insert(MediaPostCommentRequest request) {
-        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
-        MediaPost mediaPost = mediaPostRepository.findById(request.mediaPostId()).orElseThrow(() -> new RuntimeException("POST NOT FOUND!"));
+        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(AvatarNotFoundException::new);
+        MediaPost mediaPost = mediaPostRepository.findById(request.mediaPostId()).orElseThrow(MediaPostNotFoundException::new);
         MediaPostComment mediaPostComment = request.toEntity(avatar, mediaPost);
         mediaPostCommentRepository.save(mediaPostComment);
     }
@@ -37,7 +40,7 @@ public class MediaPostCommentService {
 
     //    TODO: Comment UPDATE
     public MediaPostCommentResponse update(Long mediaPostCommentId, MediaPostCommentRequest request) {
-        MediaPostComment mediaPostComment = mediaPostCommentRepository.findById(mediaPostCommentId).orElseThrow(() -> new RuntimeException("Comment Not Found!"));
+        MediaPostComment mediaPostComment = mediaPostCommentRepository.findById(mediaPostCommentId).orElseThrow(CommentNotFoundException::new);
         mediaPostComment.updateMediaPostComment(request.content());
         mediaPostCommentRepository.save(mediaPostComment);
         return new MediaPostCommentResponse(mediaPostComment);
@@ -45,6 +48,7 @@ public class MediaPostCommentService {
 
     //    TODO: Comment DELETE
     public void delete(Long mediaPostCommentId) {
-        mediaPostCommentRepository.deleteById(mediaPostCommentId);
+        MediaPostComment mediaPostComment = mediaPostCommentRepository.findById(mediaPostCommentId).orElseThrow(CommentNotFoundException::new);
+        mediaPostCommentRepository.deleteById(mediaPostComment.getMediaPostCommentId());
     }
 }

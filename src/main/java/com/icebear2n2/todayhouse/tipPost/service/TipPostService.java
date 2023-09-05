@@ -1,6 +1,7 @@
 package com.icebear2n2.todayhouse.tipPost.service;
 
 import com.icebear2n2.todayhouse.avatar.repository.AvatarRepository;
+import com.icebear2n2.todayhouse.config.exception.TipPostNotFoundException;
 import com.icebear2n2.todayhouse.domain.entity.Avatar;
 import com.icebear2n2.todayhouse.domain.entity.TipPost;
 import com.icebear2n2.todayhouse.domain.request.TipPostRequest;
@@ -21,7 +22,7 @@ public class TipPostService {
     //    TODO: Tip POST CRUD
 //    TODO: Tip POST CREATE
     public void insert(TipPostRequest request) {
-        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
+        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(TipPostNotFoundException::new);
         tipPostRepository.save(request.toEntity(avatar));
     }
 
@@ -34,7 +35,7 @@ public class TipPostService {
 
     //    TODO: Tip POST UPDATE
     public TipPostResponse update(Long tipPostId, TipPostRequest request) {
-        TipPost tipPost = tipPostRepository.findById(tipPostId).orElseThrow(() -> new RuntimeException("Tip Post NOT FOUND!"));
+        TipPost tipPost = tipPostRepository.findById(tipPostId).orElseThrow(TipPostNotFoundException::new);
         tipPost.UpdateTipPost(request.link(), request.linkInfo(), request.title(), request.content());
         tipPostRepository.save(tipPost);
         return new TipPostResponse(tipPost);
@@ -42,6 +43,7 @@ public class TipPostService {
 
     //    TODO: Tip POST DELETE
     public void delete(Long tipPostId) {
-        tipPostRepository.deleteById(tipPostId);
+        TipPost tipPost = tipPostRepository.findById(tipPostId).orElseThrow(TipPostNotFoundException::new);
+        tipPostRepository.deleteById(tipPost.getTipPostId());
     }
 }

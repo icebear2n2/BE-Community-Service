@@ -1,6 +1,8 @@
 package com.icebear2n2.todayhouse.mediaPost.service;
 
 import com.icebear2n2.todayhouse.avatar.repository.AvatarRepository;
+import com.icebear2n2.todayhouse.config.exception.AvatarNotFoundException;
+import com.icebear2n2.todayhouse.config.exception.MediaPostNotFoundException;
 import com.icebear2n2.todayhouse.domain.entity.Avatar;
 import com.icebear2n2.todayhouse.domain.entity.MediaPost;
 import com.icebear2n2.todayhouse.domain.request.MediaPostRequest;
@@ -19,7 +21,7 @@ public class MediaPostService {
 
     //    TODO: MediaPOST CREATE
     public void insert(MediaPostRequest request) {
-        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
+        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(AvatarNotFoundException::new);
         mediaPostRepository.save(request.toEntity(avatar));
     }
 
@@ -31,7 +33,7 @@ public class MediaPostService {
 
     //    TODO: MediaPOST UPDATE
     public MediaPostResponse update(Long mediaPostId, MediaPostRequest request) {
-        MediaPost mediaPost = mediaPostRepository.findById(mediaPostId).orElseThrow(() -> new RuntimeException("MEDIA POST NOT FOUND."));
+        MediaPost mediaPost = mediaPostRepository.findById(mediaPostId).orElseThrow(MediaPostNotFoundException::new);
         mediaPost.UpdateMediaPost(request.spaceInfo());
         mediaPostRepository.save(mediaPost);
         return new MediaPostResponse(mediaPost);
@@ -41,6 +43,7 @@ public class MediaPostService {
     //    TODO: MediaPOST DELETE
 
     public void delete(Long mediaPostId) {
-        mediaPostRepository.deleteById(mediaPostId);
+        MediaPost mediaPost = mediaPostRepository.findById(mediaPostId).orElseThrow(MediaPostNotFoundException::new);
+        mediaPostRepository.deleteById(mediaPost.getMediaPostId());
     }
 }

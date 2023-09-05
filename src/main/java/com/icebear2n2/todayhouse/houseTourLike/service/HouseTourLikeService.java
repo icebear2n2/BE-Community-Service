@@ -1,6 +1,10 @@
 package com.icebear2n2.todayhouse.houseTourLike.service;
 
 import com.icebear2n2.todayhouse.avatar.repository.AvatarRepository;
+import com.icebear2n2.todayhouse.config.exception.AvatarNotFoundException;
+import com.icebear2n2.todayhouse.config.exception.ExistLikeException;
+import com.icebear2n2.todayhouse.config.exception.HouseTourNotFoundException;
+import com.icebear2n2.todayhouse.config.exception.LikeNotFoundException;
 import com.icebear2n2.todayhouse.domain.entity.Avatar;
 import com.icebear2n2.todayhouse.domain.entity.HouseTour;
 import com.icebear2n2.todayhouse.domain.entity.HouseTourLike;
@@ -24,14 +28,14 @@ public class HouseTourLikeService {
 
     //    TODO: Like CREATE
     public void insert(HouseTourLikeRequest request) {
-        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(() -> new RuntimeException("AVATAR NOT FOUND!"));
-        HouseTour houseTour = houseTourRepository.findById(request.houseTourId()).orElseThrow(() -> new RuntimeException("POST NOT FOUND!"));
+        Avatar avatar = avatarRepository.findById(request.avatarId()).orElseThrow(AvatarNotFoundException::new);
+        HouseTour houseTour = houseTourRepository.findById(request.houseTourId()).orElseThrow(HouseTourNotFoundException::new);
         Boolean existsByAvatarAvatarIdAndHouseTourHouseTourId = houseTourLikeRepository.existsByAvatar_AvatarIdAndHouseTour_HouseTourId(avatar.getAvatarId(), houseTour.getHouseTourId());
         if (!existsByAvatarAvatarIdAndHouseTourHouseTourId) {
             HouseTourLike houseTourLike = request.toEntity(avatar, houseTour);
             houseTourLikeRepository.save(houseTourLike);
         } else {
-            throw new RuntimeException("Already Like Post.");
+            throw new ExistLikeException();
         }
 
     }
@@ -44,6 +48,7 @@ public class HouseTourLikeService {
 
     //    TODO: Like DELETE
     public void delete(Long houseTourLikeId) {
-        houseTourLikeRepository.deleteById(houseTourLikeId);
+        HouseTourLike houseTourLike = houseTourLikeRepository.findById(houseTourLikeId).orElseThrow(LikeNotFoundException::new);
+        houseTourLikeRepository.deleteById(houseTourLike.getLikeId());
     }
 }

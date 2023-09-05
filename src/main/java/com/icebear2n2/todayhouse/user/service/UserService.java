@@ -1,5 +1,7 @@
 package com.icebear2n2.todayhouse.user.service;
 
+import com.icebear2n2.todayhouse.config.exception.ExistEmailException;
+import com.icebear2n2.todayhouse.config.exception.UserNotFoundException;
 import com.icebear2n2.todayhouse.domain.entity.User;
 import com.icebear2n2.todayhouse.domain.request.SignupRequest;
 import com.icebear2n2.todayhouse.domain.request.UpdateRequest;
@@ -29,7 +31,7 @@ public class UserService {
         if (!byEmail.isPresent()) {
             userRepository.save(user);
         } else {
-            throw new RuntimeException("EXIST EMAIL.");
+            throw new ExistEmailException();
         }
 
     }
@@ -42,7 +44,7 @@ public class UserService {
 
     //    TODO: USER UPDATE
     public UserResponse update(Long userId, UpdateRequest request) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("USER NOT FOUND!"));
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         user.UpdateUser(request.password(), request.username(), request.birth());
 
         userRepository.save(user);
@@ -51,6 +53,7 @@ public class UserService {
 
     //    TODO: USER DELETE -> AVATAR도 같이 DROP
     public void delete(Long userId) {
-        userRepository.deleteById(userId);
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        userRepository.deleteById(user.getUserId());
     }
 }
