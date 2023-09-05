@@ -31,6 +31,9 @@ public class TipPost {
     @OneToMany(mappedBy = "tipPost")
     private List<TipPostComment> comments;
 
+    @OneToMany(mappedBy = "tipPost")
+    private List<TipPostLike> likes;
+
     @CreationTimestamp
     private Timestamp createdAt;
 

@@ -7,16 +7,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "like")
+@Table(name = "media_post_like")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Builder
-public class HouseTourLike {
+public class MediaPostLike {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "like_id")
+    @Column(name = "media_post_like_id")
     private Long likeId;
 
     @ManyToOne
@@ -24,6 +24,6 @@ public class HouseTourLike {
     private Avatar avatar;
 
     @ManyToOne
-    @JoinColumn(name = "house_tour_id", referencedColumnName = "house_tour_id")
-    private HouseTour houseTour;
+    @JoinColumn(name = "media_post_id", referencedColumnName = "media_post_id")
+    private MediaPost mediaPost;
 }

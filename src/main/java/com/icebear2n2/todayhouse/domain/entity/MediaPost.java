@@ -28,6 +28,10 @@ public class MediaPost {
     @OneToMany(mappedBy = "mediaPost")
     private List<MediaPostComment> comments;
 
+    @OneToMany(mappedBy = "mediaPost")
+    private List<MediaPostLike> likes;
+
+
     @CreationTimestamp
     private Timestamp createdAt;
 
