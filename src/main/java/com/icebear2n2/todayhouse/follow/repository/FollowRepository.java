@@ -11,4 +11,6 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
     Page<Follow> findAll(Pageable request);
 
     Follow findByFollowerAndFollowing(Avatar follower, Avatar following);
+
+    Boolean existsByFollowerAndFollowing(Avatar follower, Avatar following);
 }

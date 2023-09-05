@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 @RequiredArgsConstructor
 public class FollowService {
@@ -20,8 +22,15 @@ public class FollowService {
     public void addFollow(FollowRequest request) {
         Avatar follower = avatarRepository.findById(request.followerId()).orElseThrow(() -> new RuntimeException("Follower Not Found!"));
         Avatar following = avatarRepository.findById(request.followingId()).orElseThrow(() -> new RuntimeException("Following Not Found!"));
-        Follow follow = request.toEntity(follower, following);
-        followRepository.save(follow);
+        Boolean existsByFollowerAndFollowing = followRepository.existsByFollowerAndFollowing(follower, following);
+
+        if (!existsByFollowerAndFollowing && !Objects.equals(follower.getAvatarId(), following.getAvatarId())) {
+            Follow follow = request.toEntity(follower, following);
+            followRepository.save(follow);
+        } else {
+            throw new RuntimeException("EXIST Follower AND Following.");
+        }
+
     }
 
     public void removeFollow(FollowRequest request) {
