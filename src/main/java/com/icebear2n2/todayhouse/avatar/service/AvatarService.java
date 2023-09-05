@@ -23,7 +23,13 @@ public class AvatarService {
     //    TODO: Avatar CREATE
     public void insert(AvatarRequest request) {
         Avatar avatar = request.toEntity();
-        avatarRepository.save(avatar);
+        Boolean existsByNickname = avatarRepository.existsByNickname(avatar.getNickname());
+
+        if (!existsByNickname) {
+            avatarRepository.save(avatar);
+        } else {
+            throw new RuntimeException("AVATAR NiCK NAME EXIST.");
+        }
     }
 
 //    TODO: Avatar READ
