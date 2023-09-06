@@ -5,18 +5,19 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 public class UserDto {
-    private Long userId;
-    private String email;
-    private String userName;
-    private LocalDate birth;
+    private UUID id;
+    private String name;
+    private String number;
+    private String address;
 
     public UserDto(User user) {
-        this.userId = user.getUserId();
-        this.email = user.getEmail();
-        this.userName = user.getUserName();
-        this.birth = user.getBirth();
+        this.id = user.getId();
+        this.name = user.getName();
+        this.number = user.getNumber();
+        this.address = user.getAddress();
     }
 }

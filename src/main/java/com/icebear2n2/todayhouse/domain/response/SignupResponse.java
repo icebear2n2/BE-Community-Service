@@ -4,17 +4,16 @@ import com.icebear2n2.todayhouse.domain.dto.AvatarDto;
 import com.icebear2n2.todayhouse.domain.dto.UserDto;
 import com.icebear2n2.todayhouse.domain.entity.User;
 import com.icebear2n2.todayhouse.domain.entity.UserAvatar;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 
 import java.util.List;
 
-@Getter
-public class UserResponse extends UserDto {
+@Data
+@Builder
+public class SignupResponse{
 
-    private List<AvatarDto> avatars;
-
-    public UserResponse(User user) {
-        super(user);
-        avatars = user.getAvatars().stream().map(UserAvatar::getAvatar).map(AvatarDto::new).toList();
-    }
+    private UserDto user;
+    private String redirect;
 }
