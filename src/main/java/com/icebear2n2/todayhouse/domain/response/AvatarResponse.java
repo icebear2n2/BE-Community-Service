@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 public class AvatarResponse extends AvatarDto {
-    private List<UserDto> users;
+    private UserDto user;
     private List<HouseTourDto> houseTours;
     private List<MediaPostDto> mediaPosts;
     private List<TipPostDto> tipPosts;
@@ -17,7 +17,7 @@ public class AvatarResponse extends AvatarDto {
 
     public AvatarResponse(Avatar avatar) {
         super(avatar);
-        users = avatar.getUsers().stream().map(UserAvatar::getUser).map(UserDto::new).toList();
+        user = new UserDto(avatar.getUser());
         houseTours = avatar.getHouseTours().stream().map(HouseTourDto::new).toList();
         mediaPosts = avatar.getMediaPosts().stream().map(MediaPostDto::new).toList();
         tipPosts = avatar.getTipPosts().stream().map(TipPostDto::new).toList();

@@ -25,9 +25,6 @@ public class User {
     private String number;
     private String address;
 
-    @OneToMany(mappedBy = "user")
-    private List<UserAvatar> avatars;
-
     public void UpdateAddress(String address) {
         if (address != null) {
             this.address = address;

@@ -25,8 +25,8 @@ public class Avatar {
     private String picture;
     private String about;
 
-    @OneToMany(mappedBy = "avatar")
-    private List<UserAvatar> users;
+    @ManyToOne
+    private User user;
 
     @OneToMany(mappedBy = "avatar")
     private List<HouseTour> houseTours;
