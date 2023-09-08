@@ -8,5 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface AvatarRepository extends JpaRepository<Avatar, Long> {
     Page<Avatar> findAll(Pageable request);
 
+    Page<Avatar> findAllByAvatarId(Long avatarId, Pageable request);
+
     Boolean existsByNickname(String nickName);
 }

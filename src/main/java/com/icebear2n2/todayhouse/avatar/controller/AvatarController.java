@@ -2,6 +2,9 @@ package com.icebear2n2.todayhouse.avatar.controller;
 
 import com.icebear2n2.todayhouse.avatar.service.AvatarService;
 import com.icebear2n2.todayhouse.domain.request.AvatarRequest;
+import com.icebear2n2.todayhouse.domain.response.AvatarByLikeResponse;
+import com.icebear2n2.todayhouse.domain.response.AvatarByPostResponse;
+import com.icebear2n2.todayhouse.domain.response.AvatarByScrapResponse;
 import com.icebear2n2.todayhouse.domain.response.AvatarResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,6 +30,33 @@ public class AvatarController {
         PageRequest pageRequest = PageRequest.of(page, size);
 
         return avatarService.getAll(pageRequest);
+    }
+
+    @GetMapping("/post/{id}")
+    public Page<AvatarByPostResponse> getPostsById(@PathVariable("id") Long avatarId,
+                                                   @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+                                                   @RequestParam(name = "page", required = false, defaultValue = "0") Integer page
+    ) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return avatarService.getPostsById(avatarId, pageRequest);
+    }
+
+    @GetMapping("/like/{id}")
+    public Page<AvatarByLikeResponse> getLikesById(@PathVariable("id") Long avatarId,
+                                                   @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+                                                   @RequestParam(name = "page", required = false, defaultValue = "0") Integer page
+    ) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return avatarService.getLikesById(avatarId, pageRequest);
+    }
+
+    @GetMapping("/scrap/{id}")
+    public Page<AvatarByScrapResponse> getScrapsById(@PathVariable("id") Long avatarId,
+                                                     @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+                                                     @RequestParam(name = "page", required = false, defaultValue = "0") Integer page
+    ) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return avatarService.getScrapsById(avatarId, pageRequest);
     }
 
     @PutMapping("{id}")

@@ -7,6 +7,9 @@ import com.icebear2n2.todayhouse.config.exception.UserNotFoundException;
 import com.icebear2n2.todayhouse.domain.entity.Avatar;
 import com.icebear2n2.todayhouse.domain.entity.User;
 import com.icebear2n2.todayhouse.domain.request.AvatarRequest;
+import com.icebear2n2.todayhouse.domain.response.AvatarByLikeResponse;
+import com.icebear2n2.todayhouse.domain.response.AvatarByPostResponse;
+import com.icebear2n2.todayhouse.domain.response.AvatarByScrapResponse;
 import com.icebear2n2.todayhouse.domain.response.AvatarResponse;
 import com.icebear2n2.todayhouse.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +44,21 @@ public class AvatarService {
     public Page<AvatarResponse> getAll(PageRequest request) {
         Page<Avatar> all = avatarRepository.findAll(request);
         return all.map(AvatarResponse::new);
+    }
+
+    public Page<AvatarByPostResponse> getPostsById(Long avatarId, PageRequest request) {
+        Page<Avatar> allByAvatarId = avatarRepository.findAllByAvatarId(avatarId, request);
+        return allByAvatarId.map(AvatarByPostResponse::new);
+    }
+
+    public Page<AvatarByLikeResponse> getLikesById(Long avatarId, PageRequest request) {
+        Page<Avatar> allByAvatarId = avatarRepository.findAllByAvatarId(avatarId, request);
+        return allByAvatarId.map(AvatarByLikeResponse::new);
+    }
+
+    public Page<AvatarByScrapResponse> getScrapsById(Long avatarId, PageRequest request) {
+        Page<Avatar> allByAvatarId = avatarRepository.findAllByAvatarId(avatarId, request);
+        return allByAvatarId.map(AvatarByScrapResponse::new);
     }
 
     //    TODO: Avatar UPDATE
