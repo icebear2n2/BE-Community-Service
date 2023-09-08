@@ -44,6 +44,18 @@ public class Avatar {
     @OneToMany(mappedBy = "following")
     private List<Follow> followingList;
 
+    @OneToMany(mappedBy = "avatar")
+    private List<HouseTourScrap> houseTourScraps;
+    @OneToMany(mappedBy = "avatar")
+    private List<MediaPostScrap> mediaPostScraps;
+    @OneToMany(mappedBy = "avatar")
+    private List<TipPostScrap> tipPostScraps;
+    @OneToMany(mappedBy = "avatar")
+    private List<HouseTourLike> houseTourLikes;
+    @OneToMany(mappedBy = "avatar")
+    private List<MediaPostLike> mediaPostLikes;
+    @OneToMany(mappedBy = "avatar")
+    private List<TipPostLike> tipPostLikes;
 
     public void UpdateAvatar(String nickname, String gender, String picture, String about) {
         if (nickname != null) {
