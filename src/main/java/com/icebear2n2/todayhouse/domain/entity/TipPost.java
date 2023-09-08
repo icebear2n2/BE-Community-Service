@@ -33,7 +33,8 @@ public class TipPost {
 
     @OneToMany(mappedBy = "tipPost")
     private List<TipPostLike> likes;
-
+    @OneToMany(mappedBy = "tipPost")
+    private List<TipPostScrap> scraps;
     @CreationTimestamp
     private Timestamp createdAt;
 

@@ -37,6 +37,12 @@ public class CustomControllerAdvice {
         return new ErrorResponse("ALREADY LIKE POST!!", e.getCause());
     }
 
+    @ExceptionHandler(ExistScrapException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse existScrapExceptionHandler(ExistScrapException e) {
+        return new ErrorResponse("ALREADY SCRAP POST!!", e.getCause());
+    }
+
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse userNotFoundHandler(UserNotFoundException e) {
@@ -83,6 +89,12 @@ public class CustomControllerAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse likeNotFoundHandler(LikeNotFoundException e) {
         return new ErrorResponse("LIKE NOT FOUND!!", e.getCause());
+    }
+
+    @ExceptionHandler(ScrapNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse scrapNotFoundHandler(ScrapNotFoundException e) {
+        return new ErrorResponse("SCRAP NOT FOUND!!", e.getCause());
     }
 
     @ExceptionHandler(NotAllowFollowException.class)

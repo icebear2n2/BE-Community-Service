@@ -44,6 +44,9 @@ public class HouseTour {
     @OneToMany(mappedBy = "houseTour")
     private List<HouseTourLike> likes;
 
+    @OneToMany(mappedBy = "houseTour")
+    private List<HouseTourScrap> scraps;
+
     @CreationTimestamp
     private Timestamp createdAt;
 

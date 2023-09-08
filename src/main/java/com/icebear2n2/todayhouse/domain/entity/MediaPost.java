@@ -31,6 +31,8 @@ public class MediaPost {
     @OneToMany(mappedBy = "mediaPost")
     private List<MediaPostLike> likes;
 
+    @OneToMany(mappedBy = "mediaPost")
+    private List<MediaPostScrap> scraps;
 
     @CreationTimestamp
     private Timestamp createdAt;
