@@ -1,17 +1,13 @@
 package com.icebear2n2.todayhouse.user.service;
 
-import com.icebear2n2.todayhouse.config.exception.ExistEmailException;
-import com.icebear2n2.todayhouse.config.exception.UserNotFoundException;
-import com.icebear2n2.todayhouse.domain.dto.UserDto;
-import com.icebear2n2.todayhouse.domain.entity.User;
-import com.icebear2n2.todayhouse.domain.request.SignupRequest;
-import com.icebear2n2.todayhouse.domain.request.UserRequest;
-import com.icebear2n2.todayhouse.domain.response.SignupResponse;
+import com.icebear2n2.todayhouse.domain.dto.user.UserDto;
+import com.icebear2n2.todayhouse.domain.entity.user.User;
+import com.icebear2n2.todayhouse.domain.request.user.SignupRequest;
+import com.icebear2n2.todayhouse.domain.request.user.UserRequest;
+import com.icebear2n2.todayhouse.domain.response.user.SignupResponse;
 import com.icebear2n2.todayhouse.user.config.TokenInfo;
 import com.icebear2n2.todayhouse.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

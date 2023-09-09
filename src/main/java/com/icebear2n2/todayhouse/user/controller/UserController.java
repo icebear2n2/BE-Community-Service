@@ -1,15 +1,13 @@
 package com.icebear2n2.todayhouse.user.controller;
 
-import com.icebear2n2.todayhouse.domain.entity.User;
-import com.icebear2n2.todayhouse.domain.request.SignupRequest;
-import com.icebear2n2.todayhouse.domain.request.UserRequest;
-import com.icebear2n2.todayhouse.domain.response.SignupResponse;
+import com.icebear2n2.todayhouse.domain.entity.user.User;
+import com.icebear2n2.todayhouse.domain.request.user.SignupRequest;
+import com.icebear2n2.todayhouse.domain.request.user.UserRequest;
+import com.icebear2n2.todayhouse.domain.response.user.SignupResponse;
 import com.icebear2n2.todayhouse.user.config.JwtService;
 import com.icebear2n2.todayhouse.user.config.TokenInfo;
 import com.icebear2n2.todayhouse.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
