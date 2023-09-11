@@ -5,7 +5,9 @@ import lombok.Getter;
 
 @Getter
 public class AvatarDto {
+
     private Long avatarId;
+    private String userId;
     private String nickname;
     private String gender;
     private String picture;
@@ -13,6 +15,7 @@ public class AvatarDto {
 
     public AvatarDto(Avatar avatar) {
         this.avatarId = avatar.getAvatarId();
+        this.userId = avatar.getUserId();
         this.nickname = avatar.getNickname();
         this.gender = avatar.getGender();
         this.picture = avatar.getPicture();
